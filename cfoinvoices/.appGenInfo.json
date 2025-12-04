@@ -1,0 +1,33 @@
+{
+  "generationParameters": {
+    "generationDate": "Sun Nov 16 2025 09:27:08 GMT+0700 (Indochina Time)",
+    "generatorPlatform": "Visual Studio Code",
+    "serviceType": "OData URL",
+    "metadataFilename": "",
+    "serviceUrl": "https://s35lp1.ucc.cit.tum.de:8100/sap/opu/odata/SAP/ZPK_SAP490_G09_SRV/",
+    "appName": "cfoinvoices",
+    "appTitle": "CFO ",
+    "appDescription": "An SAP Fiori application.",
+    "appNamespace": "",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.108.33",
+    "enableCodeAssist": false,
+    "enableEslint": false,
+    "enableTypeScript": false,
+    "showMockDataInfo": true,
+    "generatorVersion": "1.18.5",
+    "template": "List Report Page V2",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [
+      {
+        "type": "Main Entity",
+        "value": "HeadersSet"
+      },
+      {
+        "type": "Navigation Entity",
+        "value": "ToItems"
+      }
+    ],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```"
+  }
+}
