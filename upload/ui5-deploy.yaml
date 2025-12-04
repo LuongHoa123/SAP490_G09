@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "3.1"
+metadata:
+  name: upload
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: https://s35lp1.ucc.cit.tum.de:8100
+          client: '302'
+        app:
+          name: ZUPLOAD
+          description: hehe
+          package: zpk_sap490_g09
+          transport: S35K901650
+        exclude:
+          - /test/
