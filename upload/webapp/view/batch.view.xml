@@ -1,0 +1,80 @@
+<mvc:View
+  controllerName="upload.controller.batch"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:fb="sap.ui.comp.filterbar">
+
+  <Page title="Batch List">
+    <content>
+
+      <!-- 🔹 FilterBar chuẩn Fiori -->
+      <fb:FilterBar id="filterBar" search=".onSearchPress" showGoOnFB="true" useToolbar="true">
+        <fb:filterItems>
+          <fb:FilterItem name="FileName" label="File Name">
+            <fb:control>
+              <Input id="fileNameFilter" placeholder="Enter file name..." />
+            </fb:control>
+          </fb:FilterItem>
+
+          <fb:FilterItem name="BatchStatus" label="Status">
+            <fb:control>
+              <Select id="statusFilter">
+                <items>
+                  <core:Item key="" text="All"/>
+                  <core:Item key="NEW" text="New"/>
+                  <core:Item key="IN_PROCESS" text="In Process"/>
+                  <core:Item key="DONE" text="Done"/>
+                </items>
+              </Select>
+            </fb:control>
+          </fb:FilterItem>
+
+          <fb:FilterItem name="CreatedAt" label="Created At">
+            <fb:control>
+              <DateRangeSelection id="dateFilter" displayFormat="short" delimiter=" - " />
+            </fb:control>
+          </fb:FilterItem>
+        </fb:filterItems>
+      </fb:FilterBar>
+
+      <!-- 🔹 Bảng dữ liệu -->
+      <Table id="batchTable" items="{/BatchCreateSet}">
+        <headerToolbar>
+          <Toolbar>
+            <Title text="Batch List" />
+            <ToolbarSpacer/>
+            <Button icon="sap-icon://upload" text="Upload" press=".onUploadPress" />
+          </Toolbar>
+        </headerToolbar>
+
+        <columns>
+          <Column><Text text="Batch ID" /></Column>
+          <Column><Text text="Status" /></Column>
+          <Column><Text text="File Name" /></Column>
+          <Column><Text text="File Type" /></Column>
+          <Column hAlign="End"><Text text="File Size" /></Column>
+          <Column><Text text="Note" /></Column>
+          <Column><Text text="Created By" /></Column>
+          <Column><Text text="Created At" /></Column>
+        </columns>
+
+        <items>
+          <ColumnListItem type="Navigation" press=".onBatchPress">
+            <cells>
+              <ObjectIdentifier title="{BatchId}" />
+              <ObjectStatus text="{BatchStatus}" />
+              <Text text="{FileName}" />
+              <Text text="{FileMimeType}" />
+              <Text text="{FileSize}" />
+              <Text text="{Note}" />
+              <Text text="{CreatedBy}" />
+              <Text text="{ path: 'CreatedAt', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' } }" />
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+
+    </content>
+  </Page>
+</mvc:View>
