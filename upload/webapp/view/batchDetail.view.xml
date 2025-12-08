@@ -1,0 +1,140 @@
+<mvc:View
+  controllerName="upload.controller.batchDetail"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:unified="sap.ui.unified">
+
+  <ScrollContainer
+      height="100%"
+      width="100%"
+      horizontal="false"
+      vertical="true"
+      focusable="true">
+
+    <VBox class="sapUiSmallMargin">
+
+      <!-- ========== TIÊU ĐỀ ========== -->
+      <Title text="Batch Detail" level="H2" />
+
+      <!-- 🔹 Batch Information -->
+      <Panel headerText="Batch Information" expandable="true" expanded="true">
+        <VBox class="sapUiSmallMargin">
+          <HBox><Label text="Batch ID:" width="10rem"/><Text text="{BatchId}" /></HBox>
+          <HBox><Label text="File Name:" width="10rem"/><Text text="{FileName}" /></HBox>
+          <HBox><Label text="Status:" width="10rem"/><ObjectStatus text="{BatchStatus}" /></HBox>
+          <HBox><Label text="Created By:" width="10rem"/><Text text="{CreatedBy}" /></HBox>
+          <HBox><Label text="Created At:" width="10rem"/><Text text="{ path:'CreatedAt', type:'sap.ui.model.type.DateTime', formatOptions:{ style:'short' } }" /></HBox>
+          <HBox><Label text="Note:" width="10rem"/><Text text="{Note}" /></HBox>
+          <HBox><Button text="⬇ Download Original File" press=".onDownloadFile" /></HBox>
+        </VBox>
+      </Panel>
+
+      <!-- 🔹 Headers & Items -->
+      <Panel headerText="Journal Entry Headers" expandable="true" expanded="true">
+        <VBox items="{ToHeaders}" class="sapUiSmallMarginTop">
+
+          <items>
+            <VBox class="sapUiNoContentPadding sapUiMediumMarginBottom sapUiBorder sapUiRoundedCorners sapUiTinyMargin sapUiSmallPadding">
+
+              <!-- HEADER INFO -->
+              <HBox class="sapUiSmallMarginBottom">
+                <VBox width="45%">
+                  <Label text="Company Code" />
+                  <Input value="{CompanyCode}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+
+                  <Label text="Document Type" />
+                  <Input value="{DocType}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+
+                  <Label text="Document Header Text" />
+                  <Input value="{DocText}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+
+                  <Label text="Reference Document Number" />
+                  <Input value="{RefDocNo}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+
+                  <Label text="Fiscal Period" />
+                  <Input value="{FiscalPeriod}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                </VBox>
+
+                <VBox width="45%" class="sapUiTinyMarginBegin">
+                  <Label text="Currency" />
+                  <Input value="{Currency}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+
+                  <Label text="Ledger Group" />
+                  <Input value="{LedgerGroup}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+
+                  <Label text="Business Area" />
+                  <Input value="{BusinessArea}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+
+                  <Label text="Document Date" />
+                  <DatePicker value="{DocDate}" displayFormat="yyyy-MM-dd"
+                              valueFormat="yyyy-MM-dd"
+                              editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+
+                  <Label text="Posting Date" />
+                  <DatePicker value="{PostDate}" displayFormat="yyyy-MM-dd"
+                              valueFormat="yyyy-MM-dd"
+                              editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                </VBox>
+              </HBox>
+
+              <!-- STATUS + REASON -->
+              <HBox>
+                <VBox width="45%">
+                  <Label text="Header Status" />
+                  <ObjectStatus text="{HeaderStatus}" state="{path:'HeaderStatus', formatter:'.formatHeaderState'}"/>
+                </VBox>
+
+                <VBox width="45%">
+                  <Label text="Reject Reason" />
+                  <TextArea value="{ReasonReject}" width="100%" rows="3"
+                            editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                </VBox>
+              </HBox>
+
+              <!-- SAVE BUTTON -->
+              <HBox class="sapUiSmallMarginTop">
+                <Button text=" Save Changes"
+                        type="Emphasized"
+                        press=".onSaveHeader"
+                        visible="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+              </HBox>
+
+              <!-- LINE ITEMS TABLE -->
+              <Table width="100%" items="{ToItems}" class="sapUiTinyMarginTop">
+                <headerToolbar><Toolbar><Title text="Line Items" level="H4"/></Toolbar></headerToolbar>
+
+                <columns>
+                  <Column><Text text="G/L Account"/></Column>
+                  <Column><Text text="Item Text"/></Column>
+                  <Column><Text text="Debit"/></Column>
+                  <Column><Text text="Credit"/></Column>
+                  <Column><Text text="Tax Code"/></Column>
+                  <Column><Text text="House Bank"/></Column>
+                  <Column><Text text="Bank Account"/></Column>
+                  <Column><Text text="Value Date"/></Column>
+                </columns>
+
+                <items>
+                  <ColumnListItem>
+                    <cells>
+                      <Input value="{GlAccount}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                      <Input value="{ItemText}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                      <Input value="{AmountDebit}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                      <Input value="{AmountCredit}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                      <Input value="{TaxCode}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                      <Input value="{HouseBank}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                      <Input value="{BankAccountId}" editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                      <DatePicker value="{ValueDate}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"
+                                  editable="{path:'HeaderStatus', formatter:'.isHeaderEditable'}"/>
+                    </cells>
+                  </ColumnListItem>
+                </items>
+              </Table>
+
+            </VBox>
+          </items>
+        </VBox>
+      </Panel>
+    </VBox>
+  </ScrollContainer>
+</mvc:View>

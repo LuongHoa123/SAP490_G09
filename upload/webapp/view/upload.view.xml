@@ -1,0 +1,148 @@
+<mvc:View
+  controllerName="upload.controller.upload"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:unified="sap.ui.unified">
+
+<ScrollContainer
+    height="100%"
+    width="100%"
+    horizontal="false"
+    vertical="true"
+    focusable="true">
+
+  <VBox class="sapUiSmallMargin">
+
+    <!-- ========== TITLE & UPLOAD ========== -->
+    <Title text="Batch Upload for Journal Entries" level="H2" />
+
+    <HBox class="sapUiSmallMarginBottom" alignItems="Center">
+      <unified:FileUploader
+        id="fuFile"
+        name="uploadExcel"
+        width="250px"
+        fileType="xlsx,xls,json"
+        change="onFileSelected"
+        placeholder="Select file..." />
+      <Button text="Download Template" icon="sap-icon://download" press="onDownload" class="sapUiTinyMarginBegin" />
+      <Button text="Submit Batch" type="Emphasized" icon="sap-icon://accept" press="onSubmit" class="sapUiTinyMarginBegin" />
+    </HBox>
+
+    <TextArea
+      value="{draft>/Note}"
+      placeholder="Enter note..."
+      width="100%"
+      rows="3"
+      class="sapUiSmallMarginBottom" />
+
+    <!-- ========== DANH SÁCH KHỐI HEADER + ITEMS ========== -->
+    <VBox
+      id="headerBlocks"
+      items="{draft>/ToHeaders}"
+      class="sapUiSmallMarginTop">
+      
+      <items>
+        <VBox class="sapUiNoContentPadding sapUiMediumMarginBottom sapUiBorder sapUiRoundedCorners sapUiTinyMargin sapUiSmallPadding">
+
+          <!-- HEADER INFO -->
+          <HBox class="sapUiSmallMargin sapUiTinyMarginBottom sapUiSmallPadding" justifyContent="Start" renderType="Bare">
+            <VBox width="45%">
+              <Label text="Company Code" required="true"/>
+              <Input value="{draft>CompanyCode}" valueState="{draft>CompanyCodeState}" liveChange="onLiveValidate"/>
+
+              <Label text="Document Type" required="true"/>
+              <Input value="{draft>DocType}" valueState="{draft>DocTypeState}" liveChange="onLiveValidate"/>
+
+              <Label text="Document Header Text" required="true"/>
+              <Input value="{draft>DocText}" valueState="{draft>DocTextState}" liveChange="onLiveValidate"/>
+
+              <Label text="Reference Document Number" required="true"/>
+              <Input value="{draft>RefDocNo}" valueState="{draft>RefDocNoState}" liveChange="onLiveValidate"/>
+
+              <Label text="Partner Business Area" required="true"/>
+              <Input value="{draft>BusinessArea}" valueState="{draft>BusinessAreaState}" liveChange="onLiveValidate"/>
+            </VBox>
+
+            <VBox width="45%" class="sapUiTinyMarginBegin">
+              <Label text="Journal Entry Date" required="true"/>
+              <DatePicker
+                value="{draft>DocDate}"
+                displayFormat="dd.MM.yyyy"
+                valueFormat="yyyy-MM-dd"
+                valueState="{draft>DocDateState}"
+                change="onDateChange"
+                placeholder="Select date..." />
+
+              <Label text="Posting Date" required="true"/>
+              <DatePicker
+                value="{draft>PostDate}"
+                displayFormat="dd.MM.yyyy"
+                valueFormat="yyyy-MM-dd"
+                valueState="{draft>PostDateState}"
+                change="onDateChange"
+                placeholder="Select date..." />
+
+              <Label text="Fiscal Period" required="true"/>
+              <Input value="{draft>FiscalPeriod}" valueState="{draft>FiscalPeriodState}" liveChange="onLiveValidate"/>
+
+              <Label text="Currency" required="true"/>
+              <Input value="{draft>Currency}" valueState="{draft>CurrencyState}" liveChange="onLiveValidate"/>
+
+              <Label text="Ledger Group"/>
+              <Input value="{draft>LedgerGroup}" liveChange="onLiveValidate"/>
+            </VBox>
+          </HBox>
+
+          <!-- LINE ITEMS TABLE -->
+          <Table
+            width="100%"
+            items="{draft>ToItems}"
+            class="sapUiNoContentPadding sapUiTinyMarginTop">
+            <headerToolbar>
+              <Toolbar>
+                <Title text="Line Items" level="H4" />
+              </Toolbar>
+            </headerToolbar>
+
+            <columns>
+              <Column><Text text="G/L Account" /></Column>
+              <Column><Text text="Item Text" /></Column>
+              <Column hAlign="End"><Text text="Debit" /></Column>
+              <Column hAlign="End"><Text text="Credit" /></Column>
+              <Column hAlign="End"><Text text="Amount" /></Column>
+              <Column><Text text="House Bank" /></Column>
+              <Column><Text text="Bank Account" /></Column>
+              <Column><Text text="Value Date" /></Column>
+              <Column><Text text="Assignment" /></Column>
+              <Column><Text text="Trading Partner" /></Column>
+            </columns>
+
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <Input value="{draft>GlAccount}" valueState="{draft>GlAccountState}" liveChange="onLiveValidate"/>
+                  <Input value="{draft>ItemText}" valueState="{draft>ItemTextState}" liveChange="onLiveValidate"/>
+                  <Input value="{draft>AmountDebit}" valueState="{draft>AmountDebitState}" liveChange="onLiveValidate"/>
+                  <Input value="{draft>AmountCredit}" valueState="{draft>AmountCreditState}" liveChange="onLiveValidate"/>
+                  <Input value="{draft>AmountLc1}" valueState="{draft>AmountLc1State}" liveChange="onLiveValidate"/>
+                  <Input value="{draft>HouseBank}" valueState="{draft>HouseBankState}" liveChange="onLiveValidate"/>
+                  <Input value="{draft>BankAccountId}" valueState="{draft>BankAccountIdState}" liveChange="onLiveValidate"/>
+                  <DatePicker
+                    value="{draft>ValueDate}"
+                    displayFormat="dd.MM.yyyy"
+                    valueFormat="yyyy-MM-dd"
+                    valueState="{draft>ValueDateState}"
+                    change="onDateChange"
+                    placeholder="Select date..." />
+                  <Input value="{draft>AssignmentNo}" liveChange="onLiveValidate"/>
+                  <Input value="{draft>TradingPartner}" liveChange="onLiveValidate"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </VBox>
+      </items>
+    </VBox>
+  </VBox>
+  </ScrollContainer>
+</mvc:View>

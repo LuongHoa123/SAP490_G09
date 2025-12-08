@@ -1,0 +1,140 @@
+{
+  "_version": "1.48.0",
+  "sap.app": {
+    "id": "upload",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    
+  "supportedLocales": [""],
+  "fallbackLocale": "en",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.18.5",
+      "toolsId": "b21a2098-99f6-4484-ade5-501e3c0f0748"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/SAP/ZPK_SAP490_G09_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+"sap.ui5": {
+  "flexEnabled": true,
+  "dependencies": {
+    "minUI5Version": "1.108.33",
+    
+    "libs": {
+      "sap.m": {},
+      "sap.ui.core": {},
+      "sap.ui.layout": {},
+      "sap.ui.unified": {}
+    }
+  },
+  "contentDensities": {
+    "compact": true,
+    "cozy": true
+  },
+  "models": {
+    "i18n": {
+      "type": "sap.ui.model.resource.ResourceModel",
+      "settings": {
+        "bundleName": "upload.i18n.i18n"
+      }
+    },
+    "": {
+      "dataSource": "mainService",
+      "preload": true,
+      "type": "sap.ui.model.odata.v2.ODataModel",
+      "settings": {
+        "defaultBindingMode": "TwoWay",
+        "useBatch": false
+      }
+    }
+  },
+  "resources": {
+    "css": [
+      {
+        "uri": "css/style.css"
+      }
+    ]
+  },
+  "routing": {
+    "config": {
+      "routerClass": "sap.m.routing.Router",
+      "viewType": "XML",
+      "viewPath": "upload.view",
+      "controlId": "app",
+      "controlAggregation": "pages",
+      "async": true
+    },
+    "routes": [
+      {
+        "pattern": "",
+        "name": "BatchList",
+        "target": "BatchList"
+      },
+      {
+        "pattern": "BatchDetail/{BatchId}",
+        "name": "BatchDetail",
+        "target": "BatchDetail"
+      },
+      {
+  "pattern": "Upload",
+  "name": "Upload",
+  "target": "Upload"
+}
+
+      
+    ],
+    "targets": {
+      "BatchList": {
+        "viewName": "batch",
+        "viewLevel": 1
+      },
+      "BatchDetail": {
+        "viewName": "batchDetail",
+        "viewLevel": 2
+      },
+      "Upload": {
+    "viewName": "upload",
+    "viewLevel": 3
+  }
+    }
+  },
+  "rootView": {
+    "viewName": "upload.view.App",
+    "type": "XML",
+    "async": true,
+    "id": "App"
+  }
+}
+
+}
