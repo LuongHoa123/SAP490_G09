@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+    <!-- SAP Vocabulary References -->
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+
+    <!-- Reference to the backend OData metadata -->
+    <edmx:Reference Uri="/sap/opu/odata/SAP/ZPK_SAP490_G09_SRV/$metadata">
+        <edmx:Include Namespace="ZPK_SAP490_G09_SRV"/>
+    </edmx:Reference>
+
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+
+            <!-- ************************************************************ -->
+            <!-- ====================== HEADER ENTITY ======================= -->
+            <!-- ************************************************************ -->
+
+            <!-- ====================== VALUE HELP FOR HEADERSTATUS ======================= -->
+        <Annotations Target="ZPK_SAP490_G09_SRV.Headers/AmountRange">
+  <Annotation Term="Common.ValueList" >
+    <Record Type="Common.ValueListType">
+
+      <PropertyValue Property="CollectionPath" String="AmountRangeVHSet"/>
+
+      <PropertyValue Property="Parameters">
+        <Collection>
+
+          <!-- Code trả về: GT50 / LE50 -->
+          <Record Type="Common.ValueListParameterInOut">
+            <PropertyValue Property="LocalDataProperty" PropertyPath="AmountRange"/>
+            <PropertyValue Property="ValueListProperty" String="Code"/>
+          </Record>
+
+          <!-- Text hiển thị -->
+          <Record Type="Common.ValueListParameterDisplayOnly">
+            <PropertyValue Property="ValueListProperty" String="Text"/>
+          </Record>
+
+        </Collection>
+      </PropertyValue>
+
+    </Record>
+  </Annotation>
+</Annotations>
+
+
+            <Annotations Target="ZPK_SAP490_G09_SRV.Headers/HeaderStatus">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="StatusVHSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+
+                                <!-- Map status code -->
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="HeaderStatus"/>
+                                    <PropertyValue Property="ValueListProperty" String="Status"/>
+                                </Record>
+
+                                <!-- Display Description in popup -->
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- ====================== UI ANNOTATIONS FOR HEADERS ======================= -->
+            <Annotations Target="ZPK_SAP490_G09_SRV.Headers">
+
+                <!-- ======= HEADER INFO ======= -->
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Invoice Header"/>
+                        <PropertyValue Property="TypeNamePlural" String="Invoices"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="DocText"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="CompanyCode"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ======= HEADER LIST PAGE ======= -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="HeaderId"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="BatchId"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="CompanyCode"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="DocType"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="DocDate"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="FiscalPeriod"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="DocText"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="Currency"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="HeaderStatus"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="LedgerGroup"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="RefDocNo"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="BusinessArea"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="AutoCalcTax"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="TotalAmount"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="FiDocNo"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="CreatedAt"/></Record>
+
+                    </Collection>
+                </Annotation>
+
+                <!-- ======= HEADER FILTER FIELDS ======= -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>CompanyCode</PropertyPath>
+                        <PropertyPath>FiscalYear</PropertyPath>
+                        <PropertyPath>HeaderStatus</PropertyPath>
+                        <PropertyPath>AmountRange</PropertyPath>
+
+                    </Collection>
+                </Annotation>
+
+                <!-- ======= OBJECT PAGE FACETS ======= -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Header Information"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#HeaderInfo"/>
+                        </Record>
+
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Line Items"/>
+                            <PropertyValue Property="Target" AnnotationPath="ToItems/@UI.LineItem"/>
+                        </Record>
+
+                    </Collection>
+                </Annotation>
+
+                <!-- ======= HEADER FIELD GROUP ======= -->
+                <Annotation Term="UI.FieldGroup" Qualifier="HeaderInfo">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+
+                                <Record Type="UI.DataField"><PropertyValue Property="Value" Path="CompanyCode"/></Record>
+                                <Record Type="UI.DataField"><PropertyValue Property="Value" Path="DocType"/></Record>
+                                <Record Type="UI.DataField"><PropertyValue Property="Value" Path="FiscalYear"/></Record>
+                                <Record Type="UI.DataField"><PropertyValue Property="Value" Path="PostDate"/></Record>
+                                <Record Type="UI.DataField"><PropertyValue Property="Value" Path="Currency"/></Record>
+                                <Record Type="UI.DataField"><PropertyValue Property="Value" Path="TotalAmount"/></Record>
+                                <Record Type="UI.DataField"><PropertyValue Property="Value" Path="HeaderStatus"/></Record>
+                                <Record Type="UI.DataField"><PropertyValue Property="Value" Path="ReasonReject"/></Record>
+
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+            </Annotations>
+
+            <!-- ************************************************************ -->
+            <!-- ====================== ITEM ENTITY ========================= -->
+            <!-- ************************************************************ -->
+            <Annotations Target="ZPK_SAP490_G09_SRV.Items">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="HeaderId"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="BatchId"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="ItemNo"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="ExcelRow"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="CompanyCode"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="GLAccount"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="ItemText"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="AmountDebit"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="AmountCredit"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="AmountLc1"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="AmountLc2"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="TaxCode"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="TaxJurisdiction"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="OrderNumber"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="ValueDate"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="HouseBank"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="BankAccountId"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="AssignmentNo"/></Record>
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="TradingPartner"/></Record>
+
+                        <Record Type="UI.DataField"><PropertyValue Property="Value" Path="CreatedAt"/></Record>
+
+                    </Collection>
+                </Annotation>
+            </Annotations>
+
+        </Schema>
+    </edmx:DataServices>
+
+</edmx:Edmx>
